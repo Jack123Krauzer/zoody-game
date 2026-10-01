@@ -105,7 +105,7 @@ const Page=styled('div')({
     '.nav':{gap:14},'.arcadeGrid':{gridTemplateColumns:'1fr'},'.stats':{gridTemplateColumns:'1fr 1fr'},'.gameVisual':{height:220}
   },
   '@media(max-width:680px)':{
-    '.max':{width:'calc(100% - 22px)'},'.topbar':{height:54},'.brandsub':{display:'none'},'.nav':{display:'none'},'.headerRight':{marginLeft:'auto'},'.onlineBadge':{display:'none'},'.login':{padding:'0 11px'},'.hero':{padding:'46px 0 38px'},'.hero h1':{fontSize:'clamp(2.8rem,14vw,4.2rem)'},'.hero p':{fontSize:'.85rem'},'.heroActions':{display:'grid',gridTemplateColumns:'1fr'},'.quick,.browse':{width:'100%'},'.stats':{marginTop:32,gap:9},'.stat':{minHeight:98,padding:14},'.section':{paddingBottom:54},'.sectionHead':{alignItems:'flex-start'},'.section h2':{fontSize:'2rem'},'.allGames':{display:'none'},'.gameVisual':{height:195},'.gameGlyph':{width:88,height:88,borderRadius:22},'.rankList li':{gridTemplateColumns:'25px 1fr auto}
+    '.max':{width:'calc(100% - 22px)'},'.topbar':{height:54},'.brandsub':{display:'none'},'.nav':{display:'none'},'.headerRight':{marginLeft:'auto'},'.onlineBadge':{display:'none'},'.login':{padding:'0 11px'},'.hero':{padding:'46px 0 38px'},'.hero h1':{fontSize:'clamp(2.8rem,14vw,4.2rem)'},'.hero p':{fontSize:'.85rem'},'.heroActions':{display:'grid',gridTemplateColumns:'1fr'},'.quick,.browse':{width:'100%'},'.stats':{marginTop:32,gap:9},'.stat':{minHeight:98,padding:14},'.section':{paddingBottom:54},'.sectionHead':{alignItems:'flex-start'},'.section h2':{fontSize:'2rem'},'.allGames':{display:'none'},'.gameVisual':{height:195},'.gameGlyph':{width:88,height:88,borderRadius:22},'.rankList li':{gridTemplateColumns:'25px 1fr auto'}
   }
 });
 
