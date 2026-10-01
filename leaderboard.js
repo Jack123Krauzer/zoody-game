@@ -20,17 +20,25 @@ function escapeHtml(value) {
   }[c]));
 }
 
-export async function loadLeaderboard(listEl, statusEl) {
-  statusEl.textContent = 'Loading…';
-
+export async function fetchLeaderboard(limit = 5) {
   const { data, error } = await supabase
     .from('leaderboard')
     .select('player_name,score,distance,wave')
     .order('score', { ascending: false })
     .order('distance', { ascending: false })
-    .limit(5);
+    .limit(limit);
 
-  if (error) {
+  if (error) throw error;
+  return data || [];
+}
+
+export async function loadLeaderboard(listEl, statusEl) {
+  statusEl.textContent = 'Loading…';
+
+  let data;
+  try {
+    data = await fetchLeaderboard(5);
+  } catch {
     statusEl.textContent = 'Offline';
     listEl.innerHTML = '<li>Leaderboard unavailable right now.</li>';
     return;
