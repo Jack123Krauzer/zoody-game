@@ -1,7 +1,10 @@
 const canvas=document.getElementById('game');const ctx=canvas.getContext('2d');
 const scoreEl=document.getElementById('score'),healthEl=document.getElementById('health'),bestEl=document.getElementById('best');
 const overlay=document.getElementById('overlay'),startBtn=document.getElementById('startBtn');
-const W=canvas.width,H=canvas.height;let running=false,last=0,score=0,best=Number(localStorage.getItem('zoody-best')||0),health=3,time=0,spawnCrystal=0,spawnEnemy=0;bestEl.textContent=`🏆 ${best}`;
+const W=canvas.width,H=canvas.height;
+function loadBest(){try{return Number(localStorage.getItem('zoody-best')||0)}catch{return 0}}
+function saveBest(value){try{localStorage.setItem('zoody-best',String(value))}catch{}}
+let running=false,last=0,score=0,best=loadBest(),health=3,time=0,spawnCrystal=0,spawnEnemy=0;bestEl.textContent=`🏆 ${best}`;
 const keys={};const player={x:160,y:H/2,vx:0,vy:0,r:28,speed:340,inv:0};let crystals=[],enemies=[],particles=[],stars=[];
 for(let i=0;i<90;i++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*2+0.5,p:Math.random()*W});
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase()))e.preventDefault()});
@@ -14,7 +17,7 @@ function updateHud(){scoreEl.textContent=`💎 ${score}`;healthEl.textContent='�
 function rand(a,b){return a+Math.random()*(b-a)}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 function burst(x,y,char,count=8){for(let i=0;i<count;i++)particles.push({x,y,vx:rand(-130,130),vy:rand(-130,130),life:rand(.35,.8),char})}
 function hit(){if(player.inv>0)return;health--;player.inv=1.2;burst(player.x,player.y,'🔥',6);updateHud();if(health<=0)gameOver()}
-function gameOver(){running=false;if(score>best){best=score;localStorage.setItem('zoody-best',best)}bestEl.textContent=`🏆 ${best}`;overlay.querySelector('h1').textContent='Adventure Over';overlay.querySelector('p').textContent=`Zoody collected ${score} crystal${score===1?'':'s'}. The sky remains dramatically unsafe.`;startBtn.textContent='Fly Again';overlay.classList.add('visible')}
+function gameOver(){running=false;if(score>best){best=score;saveBest(best)}bestEl.textContent=`🏆 ${best}`;overlay.querySelector('h1').textContent='Adventure Over';overlay.querySelector('p').textContent=`Zoody collected ${score} crystal${score===1?'':'s'}. The sky remains dramatically unsafe.`;startBtn.textContent='Fly Again';overlay.classList.add('visible')}
 function update(dt){time+=dt;player.inv=Math.max(0,player.inv-dt);let dx=0,dy=0;if(keys.a||keys.arrowleft)dx--;if(keys.d||keys.arrowright)dx++;if(keys.w||keys.arrowup)dy--;if(keys.s||keys.arrowdown)dy++;if(dx||dy){const l=Math.hypot(dx,dy);player.x+=dx/l*player.speed*dt;player.y+=dy/l*player.speed*dt}player.x=clamp(player.x,35,W-35);player.y=clamp(player.y,35,H-35);
 spawnCrystal-=dt;if(spawnCrystal<=0){crystals.push({x:W+30,y:rand(65,H-65),r:17,spin:rand(0,6)});spawnCrystal=rand(.75,1.35)}
 spawnEnemy-=dt;if(spawnEnemy<=0){enemies.push({x:W+50,y:rand(55,H-55),r:24,v:rand(220,310)+Math.min(time*4,130),w:rand(0,6)});spawnEnemy=rand(.9,1.45)}
