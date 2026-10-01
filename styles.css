@@ -3,7 +3,7 @@
   color:#eff8ff;background:#040914;color-scheme:dark
 }
 *{box-sizing:border-box}
-button{font:inherit}
+button,input{font:inherit}
 body{
   margin:0;min-height:100vh;display:grid;place-items:center;padding:14px;
   background:
@@ -48,31 +48,48 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;touch-action:none}
 }
 .overlay{
   position:absolute;inset:0;z-index:6;display:none;align-items:center;justify-content:center;padding:18px;
-  background:radial-gradient(circle at 50% 25%,#163c6ccc,#040b14ed 70%);backdrop-filter:blur(5px)
+  overflow:auto;background:radial-gradient(circle at 50% 25%,#163c6ccc,#040b14ed 70%);backdrop-filter:blur(5px)
 }
 .overlay.visible{display:flex}
 .card{
-  width:min(590px,100%);padding:28px;border-radius:28px;text-align:center;
-  background:linear-gradient(180deg,#112c4bf5,#081727f6);
+  width:min(620px,100%);padding:25px;border-radius:28px;text-align:center;
+  background:linear-gradient(180deg,#112c4bf7,#081727f7);
   border:1px solid #ffffff22;box-shadow:0 28px 90px #0009
 }
 .mascot-badge{
-  width:88px;height:88px;margin:0 auto 10px;display:grid;place-items:center;border-radius:28px;
-  font-size:58px;background:linear-gradient(145deg,#163b55,#0a2035);
+  width:82px;height:82px;margin:0 auto 9px;display:grid;place-items:center;border-radius:26px;
+  font-size:54px;background:linear-gradient(145deg,#163b55,#0a2035);
   border:1px solid #ffffff18;box-shadow:0 16px 35px #0006,0 0 30px #62f48a22
 }
 .eyebrow{font-size:.72rem;font-weight:900;letter-spacing:.22em;color:#73ebff}
-.card h1{font-size:clamp(2rem,5vw,3.4rem);line-height:.95;margin:8px 0 14px}
-.card p{color:#c7dbec;line-height:1.55}
-.feature-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:16px 0}
-.feature-row span{padding:7px 10px;border-radius:999px;background:#07192b;border:1px solid #ffffff15;font-size:.84rem}
-.controls{font-size:.9rem}
+.card h1{font-size:clamp(2rem,5vw,3.2rem);line-height:.95;margin:8px 0 13px}
+.card p{color:#c7dbec;line-height:1.5}
+.feature-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+.feature-row span{padding:7px 10px;border-radius:999px;background:#07192b;border:1px solid #ffffff15;font-size:.82rem}
+.pilot-field{display:grid;gap:6px;text-align:left;margin:14px auto 8px;max-width:330px}
+.pilot-field span{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:#91abc1;font-weight:850}
+.pilot-field input{
+  width:100%;border:1px solid #ffffff22;border-radius:13px;padding:11px 13px;
+  background:#061524;color:#fff;outline:none
+}
+.pilot-field input:focus{border-color:#6beaff;box-shadow:0 0 0 3px #6beaff18}
+.controls{font-size:.88rem}
 #startBtn{
-  border:0;border-radius:999px;padding:14px 25px;margin-top:8px;cursor:pointer;
+  border:0;border-radius:999px;padding:14px 25px;margin-top:6px;cursor:pointer;
   font-weight:950;color:#05202b;background:linear-gradient(135deg,#72f5ff,#8bff72);
   box-shadow:0 12px 34px #55dfff44
 }
 #startBtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.leaderboard-card{
+  margin:18px auto 0;max-width:430px;text-align:left;border:1px solid #ffffff17;border-radius:17px;
+  background:#061321b8;padding:12px 14px
+}
+.leaderboard-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
+.leaderboard-title strong{font-size:.9rem}
+.leaderboard-title span{font-size:.72rem;color:#7f9ab0}
+#leaderboard{margin:0;padding-left:25px;display:grid;gap:5px}
+#leaderboard li{padding-left:4px;color:#dceeff;font-size:.82rem}
+#leaderboard li span{float:right;color:#7eeeff;font-weight:900}
 .wave-banner{
   position:absolute;left:50%;top:18%;z-index:5;transform:translate(-50%,-15px) scale(.95);
   opacity:0;pointer-events:none;padding:13px 22px;border-radius:16px;
@@ -96,13 +113,14 @@ footer{text-align:center;color:#728da5;font-size:.8rem;padding:10px}
   .topbar{padding:9px;border-radius:14px}
   .brand span{display:none}
   .brand-mark{width:34px;height:34px}
-  .hud{gap:5px;font-size:.78rem}
-  .hud span,.pause-btn,.icon-btn{min-height:32px;padding:6px 8px}
-  .icon-btn{width:34px}
+  .hud{gap:5px;font-size:.74rem}
+  .hud span,.pause-btn,.icon-btn{min-height:31px;padding:5px 7px}
+  .icon-btn{width:32px}
   .game-wrap{border-radius:17px}
-  .tip-bar{left:9px;right:150px;bottom:9px;font-size:.72rem;padding:8px 10px}
+  .tip-bar{left:9px;right:150px;bottom:9px;font-size:.7rem;padding:8px 10px}
   .mobile-controls{display:block}
-  .card{padding:20px}
-  .mascot-badge{width:72px;height:72px;font-size:48px}
-  footer{font-size:.72rem}
+  .card{padding:18px 15px}
+  .mascot-badge{width:68px;height:68px;font-size:44px}
+  .leaderboard-card{margin-top:13px}
+  footer{font-size:.7rem}
 }
