@@ -16,7 +16,7 @@ function openGame(){
   homeView.hidden=true;
   gameView.hidden=false;
   document.body.classList.add('playing-game');
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo(0,0);
 }
 function openHome(){
   const pause=document.getElementById('pauseBtn');
@@ -24,11 +24,17 @@ function openHome(){
   gameView.hidden=true;
   homeView.hidden=false;
   document.body.classList.remove('playing-game');
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo(0,0);
 }
 launchers.forEach(el=>el.addEventListener('click',openGame));
 gameTile?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGame()}});
 backBtn?.addEventListener('click',openHome);
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>'"]/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+  }[c]));
+}
 
 function rankMarkup(rows){
   if(!rows?.length)return '<li><span class="rank-num">01</span><span class="rank-name">No ranked runs yet<small>The throne is embarrassingly empty.</small></span><strong>—</strong></li>';
