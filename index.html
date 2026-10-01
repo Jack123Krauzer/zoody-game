@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Zoody: Sky Crystal Run</title>
+  <meta name="description" content="Help Zoody collect sky crystals, dodge fireballs, and reach the portal." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div><strong>🐉 Zoody</strong><span>Sky Crystal Run</span></div>
+      <div class="hud"><span id="score">💎 0</span><span id="health">❤️❤️❤️</span><span id="best">🏆 0</span></div>
+    </header>
+    <section class="game-wrap">
+      <canvas id="game" width="960" height="540" aria-label="Zoody game canvas"></canvas>
+      <div id="overlay" class="overlay visible">
+        <div class="card">
+          <div class="mascot">🐉</div>
+          <h1>Zoody: Sky Crystal Run</h1>
+          <p>Collect crystals, dodge fireballs, and survive as long as you can.</p>
+          <p class="controls">Move with <b>WASD</b> / <b>Arrow Keys</b>. On mobile, drag anywhere on the game.</p>
+          <button id="startBtn">Start Adventure</button>
+        </div>
+      </div>
+    </section>
+    <footer>Built for quick browser play. No login, no database, no nonsense.</footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
