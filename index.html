@@ -3,89 +3,250 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>Zoody: Sky Crystal Run</title>
-  <meta name="description" content="Fly with Zoody, collect crystals, survive obstacle waves, and chase the global leaderboard." />
+  <meta name="theme-color" content="#050812" />
+  <title>Zoody Arcade — Play Browser Games</title>
+  <meta name="description" content="Enter Zoody Arcade. Play fast, polished browser games, chase global leaderboards, and climb the ranks." />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/home.css" />
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">Z</div>
-        <div>
-          <strong>ZOODY</strong>
-          <span>Sky Crystal Run</span>
-        </div>
-      </div>
+  <div id="homeView" class="home-view">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="scanlines"></div>
 
-      <div class="hud">
-        <span id="score">💎 0</span>
-        <span id="combo">⚡ x1</span>
-        <span id="health">❤️❤️❤️</span>
-        <span id="wave">🌊 1</span>
-        <span id="best">🏆 0</span>
-        <button id="soundBtn" class="icon-btn" type="button" aria-label="Toggle sound">🔊</button>
-        <button id="pauseBtn" class="pause-btn" type="button">⏸ Pause</button>
-      </div>
+    <header class="site-nav">
+      <a class="site-brand" href="#top" aria-label="Zoody Arcade home">
+        <span class="site-logo">Z</span>
+        <span class="site-brand-copy">
+          <strong>ZOODY</strong>
+          <small>ARCADE</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#games">Games</a>
+        <a href="#leaderboard-home">Leaderboard</a>
+      </nav>
+
+      <button class="nav-play" data-launch-game>PLAY NOW <span>→</span></button>
     </header>
 
-    <section class="game-wrap">
-      <canvas id="game" width="960" height="540" aria-label="Zoody game canvas"></canvas>
+    <main id="top">
+      <section class="hero-section">
+        <div class="hero-copy">
+          <div class="hero-kicker"><span></span> BROWSER GAMING. NO INSTALLS.</div>
+          <h1>ENTER THE SKY.<br><em>OWN THE RUN.</em></h1>
+          <p class="hero-lead">
+            Fast arcade games built for instant play. No downloads, no launcher, no fourteen-gigabyte patch because someone changed a tree texture.
+          </p>
 
-      <div id="mobileControls" class="mobile-controls" aria-label="Mobile movement controls">
-        <div class="dpad">
-          <button data-key="arrowup" aria-label="Move up">▲</button>
-          <button data-key="arrowleft" aria-label="Move left">◀</button>
-          <button data-key="arrowdown" aria-label="Move down">▼</button>
-          <button data-key="arrowright" aria-label="Move right">▶</button>
-        </div>
-      </div>
-
-      <div id="tipBar" class="tip-bar">
-        Collect crystals • Chain combos • Survive each wave
-      </div>
-
-      <div id="overlay" class="overlay visible">
-        <div class="card">
-          <div class="mascot-badge">🐉</div>
-          <div class="eyebrow">ARCADE FLIGHT</div>
-          <h1>Zoody: Sky Crystal Run</h1>
-          <p id="overlayText">Fly through changing skies, collect glowing crystals, build combos, grab shields, and survive increasingly nasty obstacle waves.</p>
-
-          <div class="feature-row">
-            <span>💎 Combo scoring</span>
-            <span>🛡 Power-ups</span>
-            <span>🔥 Boss waves</span>
-            <span>🏆 Global board</span>
+          <div class="hero-actions">
+            <button class="primary-cta" data-launch-game>
+              <span class="play-triangle">▶</span>
+              Play Sky Crystal Run
+            </button>
+            <a class="secondary-cta" href="#games">Explore Games</a>
           </div>
 
-          <label class="pilot-field">
-            <span>Pilot name</span>
-            <input id="playerName" maxlength="16" autocomplete="nickname" placeholder="SkyRider" />
-          </label>
-
-          <p class="controls">Move with <b>WASD / Arrow Keys</b>, drag on mobile, and press <b>P</b> to pause.</p>
-
-          <button id="startBtn">Start Adventure</button>
-
-          <section class="leaderboard-card">
-            <div class="leaderboard-title">
-              <strong>Global Top Pilots</strong>
-              <span id="leaderboardStatus">Loading…</span>
-            </div>
-            <ol id="leaderboard"></ol>
-          </section>
+          <div class="hero-stats">
+            <div><strong>01</strong><span>Live Game</span></div>
+            <div><strong>∞</strong><span>Instant Runs</span></div>
+            <div><strong>LIVE</strong><span>Global Ranking</span></div>
+          </div>
         </div>
-      </div>
 
-      <div id="waveBanner" class="wave-banner"></div>
-    </section>
+        <div class="hero-stage">
+          <div class="stage-frame">
+            <div class="stage-chrome">
+              <span class="live-dot"></span>
+              <span>LIVE GAMEPLAY PREVIEW</span>
+              <span class="stage-code">ZDY-01</span>
+            </div>
+            <canvas id="heroPreview" width="960" height="540" aria-label="Sky Crystal Run gameplay preview"></canvas>
+            <div class="stage-gradient"></div>
+            <div class="stage-info">
+              <div>
+                <small>FEATURED</small>
+                <strong>SKY CRYSTAL RUN</strong>
+              </div>
+              <button data-launch-game aria-label="Play Sky Crystal Run">PLAY <span>▶</span></button>
+            </div>
+          </div>
+          <div class="stage-shadow"></div>
+        </div>
+      </section>
 
-    <footer>
-      Global scores powered by Supabase • Personal best also saved on this device
+      <section class="marquee-strip" aria-hidden="true">
+        <div>
+          <span>FAST RUNS</span><i>◆</i>
+          <span>GLOBAL LEADERBOARDS</span><i>◆</i>
+          <span>BOSS WAVES</span><i>◆</i>
+          <span>NO DOWNLOADS</span><i>◆</i>
+          <span>POWER-UPS</span><i>◆</i>
+          <span>FAST RUNS</span><i>◆</i>
+          <span>GLOBAL LEADERBOARDS</span><i>◆</i>
+        </div>
+      </section>
+
+      <section id="games" class="games-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">01 / LIBRARY</span>
+            <h2>Choose Your Game</h2>
+          </div>
+          <p>One game today. More chaos later.</p>
+        </div>
+
+        <div class="game-library">
+          <article class="game-tile featured-tile" data-launch-game tabindex="0" role="button" aria-label="Play Zoody Sky Crystal Run">
+            <div class="tile-art">
+              <div class="tile-sky"></div>
+              <div class="tile-dragon">Z</div>
+              <div class="tile-orb orb-one"></div>
+              <div class="tile-orb orb-two"></div>
+              <div class="tile-badge">LIVE</div>
+              <div class="tile-play">▶</div>
+            </div>
+
+            <div class="tile-content">
+              <div class="tile-topline">
+                <span>ARCADE / SURVIVAL</span>
+                <span class="online-status"><i></i> PLAYABLE</span>
+              </div>
+              <h3>Sky Crystal Run</h3>
+              <p>Fly Zoody through shifting skies, chain crystal combos, collect power-ups, survive boss waves, and fight for the global top five.</p>
+
+              <div class="tile-meta">
+                <span><b>⚡</b> Fast Runs</span>
+                <span><b>🏆</b> Global Board</span>
+                <span><b>⌨</b> Keyboard + Mobile</span>
+              </div>
+
+              <div class="tile-footer">
+                <div class="rating-block">
+                  <small>STATUS</small>
+                  <strong>SEASON 01</strong>
+                </div>
+                <button type="button">ENTER GAME <span>→</span></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="leaderboard-home" class="ranking-section">
+        <div class="ranking-copy">
+          <span class="section-index">02 / GLOBAL RANKING</span>
+          <h2>The Sky Remembers.</h2>
+          <p>
+            Every completed run can hit the global board. Pick a pilot name, survive longer, score harder, and make strangers wonder why they spent their evening trying to beat you.
+          </p>
+          <button class="text-cta" data-launch-game>Start a ranked run <span>→</span></button>
+        </div>
+
+        <div class="ranking-panel">
+          <div class="ranking-head">
+            <div>
+              <small>SKY CRYSTAL RUN</small>
+              <strong>TOP PILOTS</strong>
+            </div>
+            <span id="homeLeaderboardStatus">SYNCING</span>
+          </div>
+          <ol id="homeLeaderboard" class="home-leaderboard">
+            <li><span class="rank-num">01</span><span class="rank-name">Loading pilots...</span><strong>—</strong></li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="site-brand footer-brand" href="#top">
+        <span class="site-logo">Z</span>
+        <span class="site-brand-copy"><strong>ZOODY</strong><small>ARCADE</small></span>
+      </a>
+      <p>Built for the browser. Designed for people who should probably stop after “one more run.”</p>
+      <span>© 2026 ZOODY ARCADE</span>
     </footer>
-  </main>
+  </div>
 
+  <div id="gameView" class="game-view" hidden>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <button id="backToArcade" class="back-btn" type="button" aria-label="Return to arcade">←</button>
+          <div class="brand-mark">Z</div>
+          <div>
+            <strong>ZOODY</strong>
+            <span>Sky Crystal Run</span>
+          </div>
+        </div>
+
+        <div class="hud">
+          <span id="score">💎 0</span>
+          <span id="combo">⚡ x1</span>
+          <span id="health">❤️❤️❤️</span>
+          <span id="wave">🌊 1</span>
+          <span id="best">🏆 0</span>
+          <button id="soundBtn" class="icon-btn" type="button" aria-label="Toggle sound">🔊</button>
+          <button id="pauseBtn" class="pause-btn" type="button">⏸ Pause</button>
+        </div>
+      </header>
+
+      <section class="game-wrap">
+        <canvas id="game" width="960" height="540" aria-label="Zoody game canvas"></canvas>
+
+        <div id="mobileControls" class="mobile-controls" aria-label="Mobile movement controls">
+          <div class="dpad">
+            <button data-key="arrowup" aria-label="Move up">▲</button>
+            <button data-key="arrowleft" aria-label="Move left">◀</button>
+            <button data-key="arrowdown" aria-label="Move down">▼</button>
+            <button data-key="arrowright" aria-label="Move right">▶</button>
+          </div>
+        </div>
+
+        <div id="tipBar" class="tip-bar">Collect crystals • Chain combos • Survive each wave</div>
+
+        <div id="overlay" class="overlay visible">
+          <div class="card">
+            <div class="mascot-badge">🐉</div>
+            <div class="eyebrow">ARCADE FLIGHT</div>
+            <h1>Zoody: Sky Crystal Run</h1>
+            <p id="overlayText">Fly through changing skies, collect glowing crystals, build combos, grab shields, and survive increasingly nasty obstacle waves.</p>
+
+            <div class="feature-row">
+              <span>💎 Combo scoring</span>
+              <span>🛡 Power-ups</span>
+              <span>🔥 Boss waves</span>
+              <span>🏆 Global board</span>
+            </div>
+
+            <label class="pilot-field">
+              <span>Pilot name</span>
+              <input id="playerName" maxlength="16" autocomplete="nickname" placeholder="SkyRider" />
+            </label>
+
+            <p class="controls">Move with <b>WASD / Arrow Keys</b>, drag on mobile, and press <b>P</b> to pause.</p>
+            <button id="startBtn">Start Adventure</button>
+
+            <section class="leaderboard-card">
+              <div class="leaderboard-title">
+                <strong>Global Top Pilots</strong>
+                <span id="leaderboardStatus">Loading…</span>
+              </div>
+              <ol id="leaderboard"></ol>
+            </section>
+          </div>
+        </div>
+
+        <div id="waveBanner" class="wave-banner"></div>
+      </section>
+
+      <footer>Global scores powered by Supabase • Personal best also saved on this device</footer>
+    </main>
+  </div>
+
+  <script type="module" src="/site.js"></script>
   <script type="module" src="/game.js"></script>
 </body>
 </html>
