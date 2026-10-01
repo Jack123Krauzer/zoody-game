@@ -40,7 +40,7 @@ function rankMarkup(rows){
   if(!rows?.length)return '<li><span class="rank-num">01</span><span class="rank-name">No ranked runs yet<small>The throne is embarrassingly empty.</small></span><strong>—</strong></li>';
   return rows.map((r,i)=>`<li>
     <span class="rank-num">${String(i+1).padStart(2,'0')}</span>
-    <span class="rank-name">${r.name}<small>Wave ${r.wave} · ${r.distance}m</small></span>
+    <span class="rank-name">${escapeHtml(r.name)}<small>Wave ${r.wave} · ${r.distance}m</small></span>
     <strong>${r.score}</strong>
   </li>`).join('');
 }
