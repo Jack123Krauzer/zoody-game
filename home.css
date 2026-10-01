@@ -211,3 +211,195 @@ button,a{-webkit-tap-highlight-color:transparent}
   .site-footer{flex-direction:column;text-align:center}
   .game-view{padding:7px;align-items:start}
 }
+
+
+/* Staging fixes: viewport lock, mobile layout, and low-cost mobile rendering */
+.nav-play{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.hero-copy,.hero-stage,.game-tile,.tile-content,.ranking-copy,.ranking-panel{min-width:0}
+
+body.playing-game{
+  height:100dvh;
+  max-height:100dvh;
+  overflow:hidden!important;
+  overscroll-behavior:none;
+}
+.game-view{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  width:100vw;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
+  padding:10px;
+  display:block;
+}
+.game-view .shell{
+  width:min(1180px,100%);
+  height:100%;
+  min-height:0;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.game-view .topbar{
+  flex:0 0 auto;
+  width:100%;
+  margin-bottom:8px;
+}
+.game-view .game-wrap{
+  flex:0 0 auto;
+  min-height:0;
+  margin:auto;
+}
+.game-view .game-wrap canvas{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.game-view footer{display:none}
+
+@media(max-width:720px){
+  .home-view{overflow-x:clip}
+  .home-view:before,.scanlines{display:none}
+  .ambient{filter:blur(54px);opacity:.2}
+  .site-nav{
+    width:calc(100% - 18px);
+    padding:10px 0;
+    gap:8px;
+    background:#060b14e8;
+    backdrop-filter:none;
+  }
+  .site-logo{width:36px;height:36px;border-radius:10px;font-size:1.05rem}
+  .site-brand-copy strong{font-size:.84rem;letter-spacing:.12em}
+  .site-brand-copy small{display:none}
+  .nav-play{padding:8px 10px;font-size:.67rem;border-radius:9px;white-space:nowrap}
+  .hero-section,.games-section,.ranking-section,.site-footer{
+    width:calc(100% - 24px);
+  }
+  .hero-section{
+    padding:38px 0 48px;
+    gap:28px;
+  }
+  .hero-kicker{font-size:.61rem;letter-spacing:.14em}
+  .hero-kicker span{width:18px}
+  .hero-copy h1{
+    margin:14px 0 16px;
+    font-size:clamp(2.8rem,15vw,4.5rem);
+    line-height:.86;
+  }
+  .hero-lead{font-size:.9rem;line-height:1.6}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:22px}
+  .primary-cta,.secondary-cta{width:100%;min-height:48px}
+  .hero-stats{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:9px;
+    margin-top:27px;
+  }
+  .hero-stats div{
+    padding:10px 8px;
+    border:1px solid #ffffff0d;
+    border-radius:10px;
+    background:#ffffff04;
+  }
+  .hero-stats strong{font-size:1rem}
+  .hero-stats span{font-size:.55rem;line-height:1.35}
+  .hero-stage{
+    width:100%;
+    max-width:100%;
+    perspective:none;
+  }
+  .stage-frame{
+    width:100%;
+    transform:none!important;
+    border-radius:16px;
+    box-shadow:0 20px 50px #0008;
+  }
+  .stage-frame:before{box-shadow:inset 0 0 0 1px #ffffff08,inset 0 -65px 75px #010812bc}
+  .stage-shadow{display:none}
+  .stage-chrome{height:34px;padding:0 10px;font-size:.54rem;letter-spacing:.08em}
+  .stage-gradient{inset:34px 0 0}
+  .stage-info{left:12px;right:12px;bottom:10px}
+  .stage-info small{font-size:.48rem}
+  .stage-info strong{font-size:.82rem}
+  .stage-info button{padding:8px 10px;font-size:.62rem}
+  .marquee-strip>div{animation:none;transform:none;gap:18px;overflow:hidden;max-width:100vw}
+  .marquee-strip span:nth-of-type(n+5),.marquee-strip i:nth-of-type(n+5){display:none}
+  .games-section{padding:66px 0 74px}
+  .section-heading{margin-bottom:20px}
+  .section-heading h2,.ranking-copy h2{font-size:clamp(2rem,10vw,3rem)}
+  .section-heading p{font-size:.82rem}
+  .game-tile{
+    grid-template-columns:minmax(0,1fr);
+    border-radius:17px;
+  }
+  .game-tile:hover{transform:none}
+  .tile-art{min-height:225px}
+  .tile-dragon{
+    left:14%;
+    top:26%;
+    width:88px;height:88px;
+    font-size:3.2rem;
+    border-radius:36%;
+    box-shadow:0 16px 35px #0005,0 0 35px #67ff9130;
+  }
+  .tile-dragon:after{left:-28px;top:31px;width:43px;height:21px}
+  .tile-orb{box-shadow:0 0 15px currentColor}
+  .tile-play{width:46px;height:46px;right:14px;bottom:14px}
+  .tile-content{padding:21px 17px}
+  .tile-content h3{font-size:2rem;margin:12px 0 10px}
+  .tile-content>p{font-size:.87rem;line-height:1.55}
+  .tile-meta{gap:6px;margin-top:17px}
+  .tile-meta span{font-size:.67rem;padding:7px 8px}
+  .tile-footer{margin-top:20px;padding-top:16px}
+  .ranking-section{gap:24px;padding:20px 0 70px}
+  .ranking-copy p{font-size:.88rem}
+  .ranking-panel{padding:16px;border-radius:16px}
+  .home-leaderboard li{grid-template-columns:34px minmax(0,1fr) auto;gap:7px;padding:12px 0}
+  .rank-name{font-size:.82rem;overflow:hidden}
+  .rank-name small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .site-footer{padding:24px 0 28px;gap:16px}
+  .site-footer>span{font-size:.62rem}
+
+  .game-view{padding:5px}
+  .game-view .topbar{
+    margin-bottom:5px;
+    padding:6px 7px;
+    gap:5px;
+    border-radius:11px;
+  }
+  .game-view .brand{gap:5px}
+  .game-view .brand-mark{width:29px;height:29px;border-radius:8px;font-size:.9rem}
+  .game-view .brand>div:last-child{display:none}
+  .game-view .back-btn{width:29px;height:29px;border-radius:8px}
+  .game-view .hud{gap:3px;font-size:.65rem}
+  .game-view .hud span,.game-view .pause-btn,.game-view .icon-btn{
+    min-height:27px;
+    padding:4px 6px;
+  }
+  .game-view .icon-btn{width:29px}
+  .game-view .game-wrap{border-radius:12px}
+  .game-view .tip-bar{font-size:.62rem;left:7px;right:140px;bottom:7px}
+}
+
+@media(max-width:430px){
+  .site-nav{width:calc(100% - 14px)}
+  .site-brand-copy strong{font-size:.76rem}
+  .nav-play{font-size:.59rem;padding:7px 8px}
+  .hero-section,.games-section,.ranking-section,.site-footer{width:calc(100% - 18px)}
+  .hero-copy h1{font-size:clamp(2.55rem,15vw,3.65rem)}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .hero-stats div:last-child{grid-column:1/-1}
+  .stage-chrome span:nth-child(2){max-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tile-topline{font-size:.56rem;gap:7px}
+  .ranking-head>span{font-size:.52rem}
+  .game-view .hud #combo,.game-view .hud #wave{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .marquee-strip>div{animation:none}
+  .game-tile,.pause-btn,.icon-btn,#startBtn{transition:none!important}
+}
