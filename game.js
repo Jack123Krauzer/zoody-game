@@ -8,7 +8,15 @@ const overlayText=document.getElementById('overlayText'),startBtn=document.getEl
 const soundBtn=document.getElementById('soundBtn'),nameEl=document.getElementById('playerName'),tipBar=document.getElementById('tipBar');
 const waveBanner=document.getElementById('waveBanner'),leaderboardEl=document.getElementById('leaderboard');
 const leaderboardStatus=document.getElementById('leaderboardStatus'),dpad=[...document.querySelectorAll('.dpad button')];
-const W=canvas.width,H=canvas.height,MAX_HEALTH=3,keys=Object.create(null);
+const lowFx=matchMedia('(pointer: coarse)').matches
+  || (typeof navigator.deviceMemory==='number'&&navigator.deviceMemory<=4)
+  || (typeof navigator.hardwareConcurrency==='number'&&navigator.hardwareConcurrency<=4);
+const W=960,H=540,MAX_HEALTH=3,keys=Object.create(null);
+if(lowFx){
+  canvas.width=640;
+  canvas.height=360;
+}
+const renderScale=canvas.width/W;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),rand=(a,b)=>a+Math.random()*(b-a);
 
 function getLocal(k,d=''){try{return localStorage.getItem(k)??d}catch{return d}}
@@ -20,11 +28,11 @@ let shieldTimer=0,bossTimer=0,spawnCrystal=0,spawnEnemy=.8,spawnPower=5,spawnBos
 let soundOn=getLocal('zoody-sound','1')!=='0',scoreSubmitted=false,bannerTimer=0;
 let crystals=[],enemies=[],powerups=[],particles=[];
 const player={x:160,y:H*.5,r:25,speed:355,inv:0,trail:[],wing:0};
-const stars=Array.from({length:120},()=>({x:rand(0,W),y:rand(0,H),s:rand(.7,2.4),speed:rand(10,42),alpha:rand(.25,.75)}));
-const clouds=Array.from({length:8},()=>({x:rand(0,W),y:rand(55,H-160),w:rand(110,230),h:rand(24,48),speed:rand(12,30),alpha:rand(.1,.24)}));
-const islands=Array.from({length:5},(_,i)=>({x:i*240+rand(-40,40),y:rand(420,505),w:rand(150,250),h:rand(45,90),speed:rand(28,42)}));
+const stars=Array.from({length:lowFx?54:120},()=>({x:rand(0,W),y:rand(0,H),s:rand(.7,2.4),speed:rand(10,42),alpha:rand(.25,.75)}));
+const clouds=Array.from({length:lowFx?4:8},()=>({x:rand(0,W),y:rand(55,H-160),w:rand(110,230),h:rand(24,48),speed:rand(12,30),alpha:rand(.1,.24)}));
+const islands=Array.from({length:lowFx?3:5},(_,i)=>({x:i*(lowFx?340:240)+rand(-40,40),y:rand(420,505),w:rand(150,250),h:rand(45,90),speed:rand(28,42)}));
 
-nameEl.value=cleanName(getLocal('zoody-name','SkyRider'));
+nameEl.value='';
 soundBtn.textContent=soundOn?'🔊':'🔇';
 
 let audioCtx=null;
@@ -72,7 +80,8 @@ function banner(t,boss=false){
   bannerTimer=setTimeout(()=>waveBanner.classList.remove('show'),1700);
 }
 function burst(x,y,color,count=12,speed=190,size=5){
-  for(let i=0;i<count;i++){
+  const particleCount=lowFx?Math.min(count,14):count;
+  for(let i=0;i<particleCount;i++){
     const a=rand(0,Math.PI*2),v=rand(speed*.35,speed);
     particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.3,.9),size:rand(2,size),color});
   }
@@ -85,7 +94,17 @@ function reset(){
   Object.assign(player,{x:160,y:H*.5,inv:0,trail:[],wing:0});hud();tip('Collect crystals • Chain combos • Survive each wave');
 }
 function startGame(){
-  audio();nameEl.value=cleanName(nameEl.value);setLocal('zoody-name',nameEl.value);reset();
+  const typedName=nameEl.value.trim();
+  if(!typedName){
+    nameEl.setCustomValidity('Enter a pilot name to start.');
+    nameEl.reportValidity();
+    nameEl.focus();
+    return;
+  }
+  nameEl.setCustomValidity('');
+  nameEl.value=cleanName(typedName);
+  audio();
+  reset();
   running=true;paused=false;overlay.classList.remove('visible');pauseBtn.textContent='⏸ Pause';startBtn.textContent='Start Adventure';
   last=performance.now();banner('WAVE 1 · OPEN SKIES');requestAnimationFrame(loop);
 }
@@ -167,7 +186,8 @@ function update(dt){
   if(dx||dy){const l=Math.hypot(dx,dy);player.x+=dx/l*player.speed*dt;player.y+=dy/l*player.speed*dt}
   player.x=clamp(player.x,52,W-55);player.y=clamp(player.y,52,H-55);player.wing+=dt*11;
   player.trail.push({x:player.x-33,y:player.y+rand(-5,5),life:.45,r:rand(3,8)});
-  if(player.trail.length>44)player.trail.shift();for(const t of player.trail)t.life-=dt;player.trail=player.trail.filter(t=>t.life>0);
+  const trailLimit=lowFx?24:44;
+  if(player.trail.length>trailLimit)player.trail.shift();for(const t of player.trail)t.life-=dt;player.trail=player.trail.filter(t=>t.life>0);
 
   if((spawnCrystal-=dt)<=0){addCrystal();spawnCrystal=rand(.48,.92)}
   if((spawnEnemy-=dt)<=0){addEnemy();spawnEnemy=rand(.72,1.14)*(bossTimer>0?.62:1)/Math.min(1.45,1+wave*.035)}
@@ -187,7 +207,10 @@ function update(dt){
   for(const p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.985;p.vy*=.985;p.life-=dt}
   particles=particles.filter(p=>p.life>0);
 }
-function draw(){drawGame(ctx,state())}
+function draw(){
+  ctx.setTransform(renderScale,0,0,renderScale,0,0);
+  drawGame(ctx,state());
+}
 function loop(now){
   if(!running||paused)return;const dt=Math.min((now-last)/1000,.033);last=now;update(dt);draw();
   if(running&&!paused)requestAnimationFrame(loop);
@@ -219,7 +242,8 @@ soundBtn.addEventListener('click',()=>{
   soundOn=!soundOn;setLocal('zoody-sound',soundOn?'1':'0');soundBtn.textContent=soundOn?'🔊':'🔇';
   if(soundOn){audio();sfx('crystal')}
 });
-nameEl.addEventListener('change',()=>{nameEl.value=cleanName(nameEl.value);setLocal('zoody-name',nameEl.value)});
+nameEl.addEventListener('input',()=>nameEl.setCustomValidity(''));
+nameEl.addEventListener('change',()=>{if(nameEl.value.trim())nameEl.value=cleanName(nameEl.value)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&running&&!paused)pauseGame()});
 
 hud();draw();loadLeaderboard(leaderboardEl,leaderboardStatus).catch(()=>leaderboardStatus.textContent='Offline');
