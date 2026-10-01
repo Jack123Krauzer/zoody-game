@@ -11,6 +11,7 @@ const homeBoardStatus=document.getElementById('homeLeaderboardStatus');
 const preview=document.getElementById('heroPreview');
 const pctx=preview.getContext('2d');
 const gameTopbar=gameView.querySelector('.topbar');
+const gameShell=gameView.querySelector('.shell');
 const gameWrap=gameView.querySelector('.game-wrap');
 
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -27,18 +28,23 @@ const W=preview.width,H=preview.height;
 
 function fitGameViewport(){
   if(gameView.hidden)return;
+
   const mobile=innerWidth<=720;
-  const horizontalPadding=mobile?10:24;
-  const verticalReserve=(gameTopbar?.offsetHeight||56)+(mobile?13:24);
-  const availableW=Math.max(220,innerWidth-horizontalPadding);
-  const availableH=Math.max(100,innerHeight-verticalReserve);
+  const shellWidth=Math.max(220,gameShell?.clientWidth||0);
+  const topbarHeight=gameTopbar?.offsetHeight||56;
+  const outerGap=mobile?10:20;
+  const availableW=Math.max(220,shellWidth);
+  const availableH=Math.max(160,gameView.clientHeight-topbarHeight-outerGap);
   const ratio=16/9;
-  let width=availableW;
+
+  let width=Math.min(availableW,availableH*ratio);
   let height=width/ratio;
+
   if(height>availableH){
     height=availableH;
     width=height*ratio;
   }
+
   gameWrap.style.width=`${Math.floor(width)}px`;
   gameWrap.style.height=`${Math.floor(height)}px`;
 }
