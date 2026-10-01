@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Zoody: Sky Crystal Run</title>
-  <meta name="description" content="Fly with Zoody, collect crystals, survive obstacle waves, and chase a new high score." />
+  <meta name="description" content="Fly with Zoody, collect crystals, survive obstacle waves, and chase the global leaderboard." />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -22,6 +22,7 @@
         <span id="score">💎 0</span>
         <span id="combo">⚡ x1</span>
         <span id="health">❤️❤️❤️</span>
+        <span id="wave">🌊 1</span>
         <span id="best">🏆 0</span>
         <button id="soundBtn" class="icon-btn" type="button" aria-label="Toggle sound">🔊</button>
         <button id="pauseBtn" class="pause-btn" type="button">⏸ Pause</button>
@@ -31,12 +32,12 @@
     <section class="game-wrap">
       <canvas id="game" width="960" height="540" aria-label="Zoody game canvas"></canvas>
 
-      <div id="mobileControls" class="mobile-controls">
+      <div id="mobileControls" class="mobile-controls" aria-label="Mobile movement controls">
         <div class="dpad">
-          <button data-key="arrowup">▲</button>
-          <button data-key="arrowleft">◀</button>
-          <button data-key="arrowdown">▼</button>
-          <button data-key="arrowright">▶</button>
+          <button data-key="arrowup" aria-label="Move up">▲</button>
+          <button data-key="arrowleft" aria-label="Move left">◀</button>
+          <button data-key="arrowdown" aria-label="Move down">▼</button>
+          <button data-key="arrowright" aria-label="Move right">▶</button>
         </div>
       </div>
 
@@ -50,13 +51,30 @@
           <div class="eyebrow">ARCADE FLIGHT</div>
           <h1>Zoody: Sky Crystal Run</h1>
           <p id="overlayText">Fly through changing skies, collect glowing crystals, build combos, grab shields, and survive increasingly nasty obstacle waves.</p>
+
           <div class="feature-row">
             <span>💎 Combo scoring</span>
-            <span>🛡 Shields</span>
+            <span>🛡 Power-ups</span>
             <span>🔥 Boss waves</span>
+            <span>🏆 Global board</span>
           </div>
+
+          <label class="pilot-field">
+            <span>Pilot name</span>
+            <input id="playerName" maxlength="16" autocomplete="nickname" placeholder="SkyRider" />
+          </label>
+
           <p class="controls">Move with <b>WASD / Arrow Keys</b>, drag on mobile, and press <b>P</b> to pause.</p>
+
           <button id="startBtn">Start Adventure</button>
+
+          <section class="leaderboard-card">
+            <div class="leaderboard-title">
+              <strong>Global Top Pilots</strong>
+              <span id="leaderboardStatus">Loading…</span>
+            </div>
+            <ol id="leaderboard"></ol>
+          </section>
         </div>
       </div>
 
@@ -64,9 +82,10 @@
     </section>
 
     <footer>
-      Best score is saved on this device. Cloud leaderboard can be connected to Supabase later.
+      Global scores powered by Supabase • Personal best also saved on this device
     </footer>
   </main>
+
   <script type="module" src="/game.js"></script>
 </body>
 </html>
