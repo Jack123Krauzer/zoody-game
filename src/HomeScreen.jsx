@@ -1,7 +1,7 @@
 import React,{useEffect,useState}from'react';
 import styled from'@emotion/styled';
 import{
-  ArrowRight,Gamepad2,Network,Play,RadioTower,Trophy,Users,Volume2,Zap
+  ChevronRight,Gamepad2,Network,Play,Trophy,Users,Volume2,Zap
 }from'lucide-react';
 import{fetchLeaderboard}from'../leaderboard.js';
 
