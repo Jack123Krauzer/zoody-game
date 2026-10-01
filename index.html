@@ -4,28 +4,68 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Zoody: Sky Crystal Run</title>
-  <meta name="description" content="Help Zoody collect sky crystals, dodge fireballs, and reach the portal." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Fly with Zoody, collect crystals, survive obstacle waves, and chase a new high score." />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
-      <div><strong>🐉 Zoody</strong><span>Sky Crystal Run</span></div>
-      <div class="hud"><span id="score">💎 0</span><span id="health">❤️❤️❤️</span><span id="best">🏆 0</span></div>
+      <div class="brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <strong>ZOODY</strong>
+          <span>Sky Crystal Run</span>
+        </div>
+      </div>
+
+      <div class="hud">
+        <span id="score">💎 0</span>
+        <span id="combo">⚡ x1</span>
+        <span id="health">❤️❤️❤️</span>
+        <span id="best">🏆 0</span>
+        <button id="soundBtn" class="icon-btn" type="button" aria-label="Toggle sound">🔊</button>
+        <button id="pauseBtn" class="pause-btn" type="button">⏸ Pause</button>
+      </div>
     </header>
+
     <section class="game-wrap">
       <canvas id="game" width="960" height="540" aria-label="Zoody game canvas"></canvas>
+
+      <div id="mobileControls" class="mobile-controls">
+        <div class="dpad">
+          <button data-key="arrowup">▲</button>
+          <button data-key="arrowleft">◀</button>
+          <button data-key="arrowdown">▼</button>
+          <button data-key="arrowright">▶</button>
+        </div>
+      </div>
+
+      <div id="tipBar" class="tip-bar">
+        Collect crystals • Chain combos • Survive each wave
+      </div>
+
       <div id="overlay" class="overlay visible">
         <div class="card">
-          <div class="mascot">🐉</div>
+          <div class="mascot-badge">🐉</div>
+          <div class="eyebrow">ARCADE FLIGHT</div>
           <h1>Zoody: Sky Crystal Run</h1>
-          <p>Collect crystals, dodge fireballs, and survive as long as you can.</p>
-          <p class="controls">Move with <b>WASD</b> / <b>Arrow Keys</b>. On mobile, drag anywhere on the game.</p>
+          <p id="overlayText">Fly through changing skies, collect glowing crystals, build combos, grab shields, and survive increasingly nasty obstacle waves.</p>
+          <div class="feature-row">
+            <span>💎 Combo scoring</span>
+            <span>🛡 Shields</span>
+            <span>🔥 Boss waves</span>
+          </div>
+          <p class="controls">Move with <b>WASD / Arrow Keys</b>, drag on mobile, and press <b>P</b> to pause.</p>
           <button id="startBtn">Start Adventure</button>
         </div>
       </div>
+
+      <div id="waveBanner" class="wave-banner"></div>
     </section>
-    <footer>Built for quick browser play. No login, no database, no nonsense.</footer>
+
+    <footer>
+      Best score is saved on this device. Cloud leaderboard can be connected to Supabase later.
+    </footer>
   </main>
   <script type="module" src="/game.js"></script>
 </body>
