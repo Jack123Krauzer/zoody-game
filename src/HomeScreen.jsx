@@ -100,7 +100,7 @@ const Page=styled('div')({
   '.rankList strong':{fontSize:'.67rem',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
   '.rankList small':{marginTop:2,color:'#576575',fontSize:'.49rem'},
   '.rankList b':{color:'var(--cyan)',fontFamily:'ui-monospace,SFMono-Regular,Menlo,monospace',fontSize:'.62rem'},
-  '.footer':{padding:'29px 0 35px;borderTop:'1px solid rgba(0,234,255,.1)',textAlign:'center',color:'#536171',fontFamily:'ui-monospace,SFMono-Regular,Menlo,monospace',fontSize:'.48rem',letterSpacing:'.14em'},
+  '.footer':{padding:'29px 0 35px',borderTop:'1px solid rgba(0,234,255,.1)',textAlign:'center',color:'#536171',fontFamily:'ui-monospace,SFMono-Regular,Menlo,monospace',fontSize:'.48rem',letterSpacing:'.14em'},
   '@media(max-width:900px)':{
     '.nav':{gap:14},'.arcadeGrid':{gridTemplateColumns:'1fr'},'.stats':{gridTemplateColumns:'1fr 1fr'},'.gameVisual':{height:220}
   },
